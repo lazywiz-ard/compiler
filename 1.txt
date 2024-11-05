@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main() {
+
+int i;
+
+string statement;
+
+cout << "Enter the statement:";
+
+getline (cin, statement);
+
+cout << "The entered statement was:" <<statement<< endl;
+
+vector<string> s;
+vector<string> c;
+
+string temp = " ";
+
+for(i=0;i<statement.size();i++){
+    if(statement[i]==' '){
+        continue;
+    }
+
+if(statement[i]=='=' || statement[i]=='*' || statement[i]=='/' ||statement[i]=='+' ||statement[i]=='-' || statement[i]==';' ){
+    // cout<<endl;
+    // cout<<statement[i];
+    // cout<<endl;
+    //c+=statement[i];
+    s.push_back(temp);
+    temp=" ";
+    
+}else{
+    //cout<<statement[i];
+    temp+=statement[i];
+    
+}
+}
+for(auto x:s){
+    if(isdigit(x[1])){
+        cout<<"valid"<<endl;
+    }
+}
+
+return 0;
+
+}
