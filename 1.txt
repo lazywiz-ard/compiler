@@ -1,49 +1,58 @@
 #include <bits/stdc++.h>
-
 using namespace std;
 
+bool isNumber(const string &str) {
+    if (str.empty()) return false;
+    for (char ch : str) {
+        if (!isdigit(ch)) return false;
+    }
+    return true;
+}
+
 int main() {
+    string statement;
+    cout << "Enter the statement: ";
+    getline(cin, statement);
 
-int i;
+    cout << "The entered statement was: " << statement << endl;
 
-string statement;
+    vector<string> tokens;
+    string temp = "";
 
-cout << "Enter the statement:";
-
-getline (cin, statement);
-
-cout << "The entered statement was:" <<statement<< endl;
-
-vector<string> s;
-vector<string> c;
-
-string temp = " ";
-
-for(i=0;i<statement.size();i++){
-    if(statement[i]==' '){
-        continue;
+    for (int i = 0; i < statement.size(); ++i) {
+        if (statement[i] == ' ') {
+            continue;
+        }
+        
+        if (statement[i] == '=' || statement[i] == '*' || statement[i] == '/' || 
+            statement[i] == '+' || statement[i] == '-' || statement[i] == ';') {
+            if (!temp.empty()) {
+                tokens.push_back(temp);
+                temp = "";
+            }
+            tokens.push_back(string(1, statement[i]));
+        } else {
+            temp += statement[i];
+        }
+    }
+    
+    if (!temp.empty()) {
+        tokens.push_back(temp);
     }
 
-if(statement[i]=='=' || statement[i]=='*' || statement[i]=='/' ||statement[i]=='+' ||statement[i]=='-' || statement[i]==';' ){
-    // cout<<endl;
-    // cout<<statement[i];
-    // cout<<endl;
-    //c+=statement[i];
-    s.push_back(temp);
-    temp=" ";
-    
-}else{
-    //cout<<statement[i];
-    temp+=statement[i];
-    
-}
-}
-for(auto x:s){
-    if(isdigit(x[1])){
-        cout<<"valid"<<endl;
+    cout << "Tokens: ";
+    for (const auto& token : tokens) {
+        cout << token << " ";
     }
-}
+    cout << endl;
 
-return 0;
+    for (const auto& token : tokens) {
+        if (!isdigit(token[0])) {
+            cout << token << " is a valid variable (first letter is not a digit)." << endl;
+        } else {
+            cout << token << " is invalid (starts with a digit)." << endl;
+        }
+    }
 
+    return 0;
 }
